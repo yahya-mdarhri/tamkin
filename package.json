@@ -1,0 +1,12 @@
+{
+  "name": "tamkin-for-cities",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Tamkin For Cities — static platform with Supabase-backed authentication.",
+  "scripts": {
+    "seed": "node scripts/seed.js"
+  },
+  "devDependencies": {
+    "@supabase/supabase-js": "^2"
+  }
+}

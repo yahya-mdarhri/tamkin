@@ -1,0 +1,7 @@
+node_modules/
+seed-data/
+credentials.local.json
+.env
+.env.*
+tamkin-for-cities.original.bak.html
+.vercel
