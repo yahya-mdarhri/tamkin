@@ -726,8 +726,8 @@ document.getElementById('route').addEventListener('click',e=>{if(e.target.closes
 /* ---------- APP : accueil, login, navigation ---------- */
 let MODEV='read',LOGIN=null,SESSION=null;
 const PALN2=PALN;
-const SUPABASE_URL='__SUPABASE_URL__';
-const SUPABASE_ANON_KEY='__SUPABASE_ANON_KEY__';
+const SUPABASE_URL='https://femdimvuatmttnqymrba.supabase.co';
+const SUPABASE_ANON_KEY='sb_publishable_7V7B15tq2vJffrY7NB_C9g_AdtHXATh';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 function emailFor(kind,v){return kind==='nat'?'dgct.national@tamkin-cities.app':v.toLowerCase().replace(/\s+/g,'-')+'.commune@tamkin-cities.app';}
 function cityCards(){return N.villes.map(v=>`<button class="city" data-login="city" data-v="${v}"><img class="ph" src="${CITYPH[v]||''}" alt=""><b>${v}</b></button>`).join('');}
