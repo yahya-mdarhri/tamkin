@@ -14,12 +14,20 @@ and per-commune data storage, deployed on Vercel.
 - **Authentication** is Supabase Auth (email/password). There are 9 fixed
   accounts: one per commune + one national account. No self-signup — accounts
   are provisioned with `scripts/seed.js`.
+- **Panel-wide aggregates** (e.g. the average score per objective, used by
+  the "Lecture par ODD" views to compare a commune against the panel) are
+  computed live by the `obj_panel()` Postgres function (`supabase/schema.sql`),
+  not baked into the HTML. It's `SECURITY DEFINER` so it can average across
+  all 8 communes' rows even though a commune session can only read its own
+  row directly — it only ever returns an aggregate, never another commune's
+  individual score.
 
 ## One-time setup
 
 1. **Create a Supabase project** at https://supabase.com (free tier is enough).
 2. **Run the schema**: open the Supabase SQL editor and run the contents of
-   `supabase/schema.sql`.
+   `supabase/schema.sql`. Re-run it any time this file changes (it's
+   idempotent) — e.g. it now also defines the `obj_panel()` function.
 3. **Get your API keys** from Project Settings → API:
    - Project URL
    - `anon` `public` key (safe to expose client-side — RLS is what protects the data)

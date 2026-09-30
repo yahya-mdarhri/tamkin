@@ -853,9 +853,17 @@ async function fetchCity(v){
   D.fiches[v]=data.fiches;D.ev[v]=data.ev;D.synth[v]=data.synth;D.route[v]=data.route;
 }
 async function fetchAllCities(){await Promise.all(N.villes.map(fetchCity));}
+async function fetchObjPanel(){
+  try{
+    const{data,error}=await sb.rpc('obj_panel');
+    if(error||!data)return;
+    const m={};data.forEach(r=>{m[r.fid]=+r.pct;});
+    N.objPanel=m;
+  }catch(e){}
+}
 function clearCityData(){D.fiches={};D.ev={};D.synth={};D.route={};}
-async function enterNational(){await fetchAllCities();renderNat();show('v-nat');natTab('rest');}
-async function enterCommune(v){await fetchCity(v);MODEV='commune';openCity(v,'eval');}
+async function enterNational(){await Promise.all([fetchAllCities(),fetchObjPanel()]);renderNat();show('v-nat');natTab('rest');}
+async function enterCommune(v){await Promise.all([fetchCity(v),fetchObjPanel()]);MODEV='commune';openCity(v,'eval');}
 async function doLogin(){
   const email=emailFor(LOGIN.kind,LOGIN.v),password=document.getElementById('mpass').value;
   const btn=document.getElementById('mok'),errEl=document.getElementById('merr');
